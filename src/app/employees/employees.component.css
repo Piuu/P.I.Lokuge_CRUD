@@ -1,0 +1,20 @@
+.table1{
+    border: 1px solid black;
+}
+.form1{
+    width:50%;
+    margin-left:25%;
+    border: 1px solid black;
+    margin-top: 5%;
+}
+
+.input1{
+    margin-left: 20%;
+    margin-top: 5%;
+    width:60%;
+}
+.btn1{
+    margin-top:10px;
+    margin-bottom:10px;    
+    margin-left:70%;
+}
