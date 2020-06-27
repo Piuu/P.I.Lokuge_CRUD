@@ -23,7 +23,7 @@ export class EmployeesComponent implements OnInit {
   selectedEmp:Employee;
   toggleForm: boolean = false;
   constructor(private apiService: ApiService) { }
-
+ //Read Function
   ngOnInit(): void {
     this.apiService.getEmp().subscribe((data: any[])=>{
       console.log(data);
@@ -33,6 +33,7 @@ export class EmployeesComponent implements OnInit {
 
 
   }
+  //Delete function
   deleteEmp(id) {
 
     Swal.fire({
@@ -69,7 +70,8 @@ export class EmployeesComponent implements OnInit {
 
     
   }
-//get all the employees
+ //Read function  
+ //get all the employees
   getEmps(){
     this.apiService.getEmp().subscribe((data: any[])=>{
       console.log(data);
@@ -90,58 +92,100 @@ export class EmployeesComponent implements OnInit {
     this.selectedEmp = employee;
     this.toggleForm = !this.toggleForm;
   }
-
-editEmp() {
-  
-  // tslint:disable-next-line:prefer-const
-  let newEmp = { //newEmp:Emp={}
-    id: this.selectedEmp.id,
-    name: this.selectedEmp.employee_name,
-    salary: this.selectedEmp.employee_salary,
-    age: this.selectedEmp.employee_age,
-    image: this.selectedEmp.profile_image,
-    };
-
-  this.apiService.updateEmp(newEmp)
-      .subscribe(result => {
-        console.log('original Emp to be updated:' + result);
+  //Edit function
+  editEmp() {
+    
+   
+    let newEmp = {
+      id: this.selectedEmp.id,
+      name: this.selectedEmp.employee_name,
+      salary: this.selectedEmp.employee_salary,
+      age: this.selectedEmp.employee_age,
+      image: this.selectedEmp.profile_image,
+      };
+    if(((this.selectedEmp.employee_name!='')&&(this.selectedEmp.employee_name!=null))&&((this.selectedEmp.employee_salary!='')&&(this.selectedEmp.employee_salary!=null))&&((this.selectedEmp.employee_age!='')&&(this.selectedEmp.employee_age!=null))){
+    if((parseInt(JSON.stringify(this.selectedEmp.employee_salary))>=0)&&(parseInt(JSON.stringify(this.selectedEmp.employee_age))>0)){
+      this.apiService.updateEmp(newEmp)
+        .subscribe(result => {
+          console.log('original Emp to be updated:' + result);
+          Swal.fire(
+            result['message'],          
+            result['status'],
+            'success'
+          );
+        });
+       this.employee_name ='';
+       this.employee_salary='';
+       this.employee_age='';
+         
+      this.toggleForm = !this.toggleForm;
+      }
+      else{
         Swal.fire(
-          result['message'],          
-          result['status'],
+          'Error',          
+          'Please give valid numeric values!',
+          'error'
+        ).then((result) => {
+        location.reload();
+        });
+      }
+    }
+      else{
+        Swal.fire(
+          'Error',          
+          'Please fill all the fields!',
+          'error'
+        ).then((result) => {
+          location.reload();
+          });
+      }
+
+  }
+  //Create function
+  addEmp() {
+    
+    const newEmp = {
+      id: "",
+      name: this.employee_name,
+      salary: this.employee_salary,
+      age: this.employee_age,
+      image: this.profile_image,
+      };
+    if((this.employee_name!=null)&&(this.employee_salary!=null)&&(this.employee_age!=null)){
+      if((parseInt(JSON.stringify(this.employee_salary))>=0)&&(parseInt(JSON.stringify(this.employee_age))>0)){
+      this.apiService.addEmp(newEmp)
+        .subscribe(employee => {
+        this.empList.push(employee['data']);
+          
+            console.log(employee['status']);
+            console.log(employee['data']);
+        // this.getEmps();
+        Swal.fire(
+          employee['message'],          
+          employee['status'],
           'success'
         );
-      });
-    this.toggleForm = !this.toggleForm;
-
-
-}
-
-addEmp() {
-  //this.setCode();
-  //this.count = this.count + 1;
-  
-  const newEmp = {
-    id: "25",
-    name: this.employee_name,
-    salary: this.employee_salary,
-    age: this.employee_age,
-    image: this.profile_image,
-    };
-  this.apiService.addEmp(newEmp)
-    .subscribe(employee => {
-     this.empList.push(employee['data']);
-      //this.apiService.getEmp()
-        //.subscribe(employee =>
-        //  this.employee = employee);
-        console.log(employee['status']);
-        console.log(employee['data']);
-     // this.getEmps();
-     Swal.fire(
-      employee['message'],          
-      employee['status'],
-      'success'
-    );
-    });
-}
+        });
+      this.employee_name ='';
+      this.employee_salary='';
+      this.employee_age='';
+        
+      }
+      else{
+        Swal.fire(
+          'Error',          
+          'Please give valid numeric values!',
+          'error'
+        );
+      }
+    }
+    else{
+      Swal.fire(
+        'Error',          
+        'Please fill all the fields!',
+        'error'
+      );
+    }
+  }
 
 }

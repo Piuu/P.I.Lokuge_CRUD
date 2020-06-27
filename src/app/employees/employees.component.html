@@ -3,18 +3,18 @@
       
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_circle</i>
-          <input id="icon_prefix" type="text" class="validate" [(ngModel)]="employee_name" name="something">
+          <input id="icon_prefix" type="text"  [(ngModel)]="employee_name" name="employee_name"  required>
           <label for="icon_prefix">Name</label>
         </div>
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_balance_wallet</i>
-          <input id="icon_telephone" type="text" class="validate" [(ngModel)]="employee_salary" name="something">
+          <input id="icon_telephone" type="number"  [(ngModel)]="employee_salary" name="employee_salary"  required>
           <label for="icon_telephone">Salary</label>
         </div>
         
         <div class="input-field col s6 input1">
             <i class="material-icons prefix">person</i>
-            <input id="icon_telephone" type="text" class="validate" [(ngModel)]="employee_age" name="something">
+            <input id="icon_telephone" type="number"  [(ngModel)]="employee_age" name="employee_age"  required>
             <label for="icon_telephone">Age</label>
           </div>
 
@@ -31,18 +31,18 @@
       
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_circle</i>
-          <input id="name" type="text" class="validate" [(ngModel)]="selectedEmp.employee_name" name="name">
+          <input id="name" type="text"  [(ngModel)]="selectedEmp.employee_name" name="employee_name" required>
           
         </div>
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_balance_wallet</i>
-          <input id="salary" type="text" class="validate" [(ngModel)]="selectedEmp.employee_salary" name="salary">
+          <input id="salary" type="number"  [(ngModel)]="selectedEmp.employee_salary" name="employee_salary" required>
           
         </div>
         
         <div class="input-field col s6 input1">
             <i class="material-icons prefix">person</i>
-            <input id="age" type="text" class="validate" [(ngModel)]="selectedEmp.employee_age" name="age">
+            <input id="age" type="number" [(ngModel)]="selectedEmp.employee_age" name="employee_age" required>
             
           </div>
 
@@ -72,7 +72,7 @@
             <td>{{employee.employee_salary == null ? employee.salary :employee.employee_salary}}</td>
             <td>{{employee.employee_age == null ? employee.age :employee.employee_age}}</td>
             
-            <td><button class="btn waves-effect waves-light"><i class="material-icons" (click)="showEditFrm(employee)" [disabled]="toggleForm" >edit</i></button></td>
+            <td><button class="btn waves-effect waves-light"><i class="material-icons" (click)="showEditFrm(employee)"  >edit</i></button></td>
             <td><button class="btn waves-effect waves-light red"><i class="material-icons" (click)="deleteEmp(employee.id)" >delete_forever</i></button></td>
           </tr>
         </tbody>
