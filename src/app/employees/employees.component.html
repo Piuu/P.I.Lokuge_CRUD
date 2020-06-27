@@ -72,10 +72,10 @@
             <td>{{employee.employee_salary == null ? employee.salary :employee.employee_salary}}</td>
             <td>{{employee.employee_age == null ? employee.age :employee.employee_age}}</td>
             
-            <td><button class="btn waves-effect waves-light"><i class="material-icons" (click)="showEditFrm(employee)" [disabled]="toggleForm">edit</i></button></td>
-            <td><button class="btn waves-effect waves-light red"><i class="material-icons" (click)="deleteEmp(employee.id)">delete_forever</i></button></td>
+            <td><button class="btn waves-effect waves-light"><i class="material-icons" (click)="showEditFrm(employee)" [disabled]="toggleForm" >edit</i></button></td>
+            <td><button class="btn waves-effect waves-light red"><i class="material-icons" (click)="deleteEmp(employee.id)" >delete_forever</i></button></td>
           </tr>
         </tbody>
-      </table>
+      </table> 
  </div>     
       

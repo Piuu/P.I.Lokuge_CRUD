@@ -1,6 +1,6 @@
 
 import { NgForm } from '@angular/forms';
-
+import Swal from 'sweetalert2';
 
 
 import { Component, OnInit } from '@angular/core';
@@ -35,11 +35,39 @@ export class EmployeesComponent implements OnInit {
   }
   deleteEmp(id) {
 
-    this.apiService.deleteEmp(id).subscribe((data: any[]) => {
-      
-          console.log(data);
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+        this.apiService.deleteEmp(id).subscribe((data: any[]) => {
+          Swal.fire(
+            data['message'],          
+            data['status']
+          );
+          //console.log(data);
        
       });
+
+
+        
+     
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled'         
+          
+        );
+      }
+    })
+
+
+
+
+    
   }
 //get all the employees
   getEmps(){
@@ -77,9 +105,13 @@ editEmp() {
   this.apiService.updateEmp(newEmp)
       .subscribe(result => {
         console.log('original Emp to be updated:' + result);
-        //this.getEmps();
+        Swal.fire(
+          result['message'],          
+          result['status'],
+          'success'
+        );
       });
-    this.toggleForm =! this.toggleForm;
+    this.toggleForm = !this.toggleForm;
 
 
 }
@@ -104,6 +136,11 @@ addEmp() {
         console.log(employee['status']);
         console.log(employee['data']);
      // this.getEmps();
+     Swal.fire(
+      employee['message'],          
+      employee['status'],
+      'success'
+    );
     });
 }
 
