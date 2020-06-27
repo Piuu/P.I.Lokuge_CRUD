@@ -22,7 +22,7 @@ export class EmployeesComponent implements OnInit {
   editName;
   editSalary;
   editAge;
-  columnHeaderList=["id", "Name", "Salary", "Age",  "Edit", "Delete"];
+  columnHeaderList=["ID", "Name", "Salary", "Age",  "Edit", "Delete"];
   selectedEmp:Employee;
   toggleForm: boolean = false;
   constructor(private apiService: ApiService) { }
