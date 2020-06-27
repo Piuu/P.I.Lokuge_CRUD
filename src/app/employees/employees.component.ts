@@ -19,6 +19,9 @@ export class EmployeesComponent implements OnInit {
   employee_salary:String;
   employee_age:String;
   profile_image:String;
+  editName;
+  editSalary;
+  editAge;
   columnHeaderList=["id", "Name", "Salary", "Age",  "Edit", "Delete"];
   selectedEmp:Employee;
   toggleForm: boolean = false;
@@ -65,10 +68,7 @@ export class EmployeesComponent implements OnInit {
       }
     })
 
-
-
-
-    
+   
   }
  //Read function  
  //get all the employees
@@ -90,12 +90,25 @@ export class EmployeesComponent implements OnInit {
 //switch the forms
   showEditFrm(employee) {
     this.selectedEmp = employee;
+    console.log(this.selectedEmp.employee_age);
     this.toggleForm = !this.toggleForm;
+    this.editName=this.selectedEmp.employee_name;
+    this.editSalary=this.selectedEmp.employee_salary;
+    this.editAge=this.selectedEmp.employee_age;
   }
+  
   //Edit function
   editEmp() {
-    
-   
+    console.log("----"+this.selectedEmp.employee_salary);
+   if(this.selectedEmp.employee_name==''){
+    this.selectedEmp.employee_name=this.editName;
+   }
+   if(this.selectedEmp.employee_salary==''){
+    this.selectedEmp.employee_salary=this.editSalary;
+   }
+   if(this.selectedEmp.employee_age==''){
+    this.selectedEmp.employee_age=this.editAge;
+   }
     let newEmp = {
       id: this.selectedEmp.id,
       name: this.selectedEmp.employee_name,
@@ -113,14 +126,36 @@ export class EmployeesComponent implements OnInit {
             result['status'],
             'success'
           );
+          this.employee_name ='';
+          this.employee_salary='';
+          this.employee_age='';
+          this.profile_image='';
         });
-       this.employee_name ='';
-       this.employee_salary='';
-       this.employee_age='';
+       
+         
+      this.toggleForm = !this.toggleForm;
+      }
+      else if (isNaN(parseInt(JSON.stringify(this.selectedEmp.employee_salary)))||isNaN(parseInt(JSON.stringify(this.selectedEmp.employee_age)))){
+        this.apiService.updateEmp(newEmp)
+        .subscribe(result => {
+          console.log('original Emp to be updated:' + result);
+          Swal.fire(
+            result['message'],          
+            result['status'],
+            'success'
+          );
+          this.employee_name ='';
+          this.employee_salary='';
+          this.employee_age='';
+          this.profile_image='';
+        });
+       
          
       this.toggleForm = !this.toggleForm;
       }
       else{
+        console.log(parseInt(JSON.stringify(this.selectedEmp.employee_salary)));
+        console.log(parseInt(JSON.stringify(this.selectedEmp.employee_age)));
         Swal.fire(
           'Error',          
           'Please give valid numeric values!',
@@ -165,11 +200,12 @@ export class EmployeesComponent implements OnInit {
           employee['status'],
           'success'
         );
+        this.employee_name ='';
+        this.employee_salary='';
+        this.employee_age='';
+        this.profile_image='';  
         });
-      this.employee_name ='';
-      this.employee_salary='';
-      this.employee_age='';
-        
+      
       }
       else{
         Swal.fire(

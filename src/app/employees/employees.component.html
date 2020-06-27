@@ -3,22 +3,26 @@
       
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_circle</i>
-          <input id="icon_prefix" type="text"  [(ngModel)]="employee_name" name="employee_name"  required>
-          <label for="icon_prefix">Name</label>
+          <input id="name" type="text"  [(ngModel)]="employee_name" name="name"  required>
+          <label for="name">Name</label>
         </div>
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_balance_wallet</i>
-          <input id="icon_telephone" type="number"  [(ngModel)]="employee_salary" name="employee_salary"  required>
-          <label for="icon_telephone">Salary</label>
+          <input id="salary" type="number"  [(ngModel)]="employee_salary" name="salary"  required>
+          <label for="salary">Salary</label>
         </div>
         
         <div class="input-field col s6 input1">
             <i class="material-icons prefix">person</i>
-            <input id="icon_telephone" type="number"  [(ngModel)]="employee_age" name="employee_age"  required>
-            <label for="icon_telephone">Age</label>
+            <input id="age" type="number"  [(ngModel)]="employee_age" name="age"  required>
+            <label for="age">Age</label>
           </div>
 
-          <a class="waves-effect waves-light input1"><i class="material-icons left">cloud</i>Upload photo</a>  
+          <div class="input-field col s6 input1">
+            <i class="material-icons prefix">cloud</i>
+            <input id="img" type="file"  [(ngModel)]="profile_image" name="profile_image" accept="image/x-png,image/gif,image/jpeg" >
+            
+          </div>  
         <br>
       <br><br>
       <button class="btn waves-effect waves-light btn1" type="submit" >Save Employee
@@ -31,22 +35,26 @@
       
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_circle</i>
-          <input id="name" type="text"  [(ngModel)]="selectedEmp.employee_name" name="employee_name" required>
+          <input id="name" type="text"  [(ngModel)]="selectedEmp.employee_name" name="name1" required>
           
         </div>
         <div class="input-field col s6 input1">
           <i class="material-icons prefix">account_balance_wallet</i>
-          <input id="salary" type="number"  [(ngModel)]="selectedEmp.employee_salary" name="employee_salary" required>
+          <input id="salary" type="number"  [(ngModel)]="selectedEmp.employee_salary" name="salary1" required>
           
         </div>
         
         <div class="input-field col s6 input1">
             <i class="material-icons prefix">person</i>
-            <input id="age" type="number" [(ngModel)]="selectedEmp.employee_age" name="employee_age" required>
+            <input id="age" type="number" [(ngModel)]="selectedEmp.employee_age" name="age1" required>
             
           </div>
 
-          <a class="waves-effect waves-light input1"><i class="material-icons left">cloud</i>Upload photo</a>  
+          <div class="input-field col s6 input1">
+            <i class="material-icons prefix">cloud</i>
+            <input id="img" type="file"  [(ngModel)]="selectedEmp.profile_image" name="profile_image"  accept="image/x-png,image/gif,image/jpeg">
+            
+          </div>
         <br>
       <br><br>
       <button class="btn waves-effect waves-light btn1" type="submit" >Save Employee
